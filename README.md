@@ -57,4 +57,7 @@ Open `index.html` and edit the top CONFIGURATION block:
 
 ## 📝 License
 
+### This project is licensed under the MIT License. Feel free to fork, customize and rock your cyberpunk portfolio!
+## 📝 License
+
 #### This project is licensed under the MIT License. Feel free to fork, customize and rock your cyberpunk portfolio!
