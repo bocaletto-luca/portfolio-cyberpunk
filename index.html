@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cyberpunk Dev Portfolio</title>
+  <!-- Font cyberpunk -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <!-- GSAP per animazioni base -->
+  <script src="https://unpkg.com/gsap@3.11.5/dist/gsap.min.js"></script>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --neon-pink: #ff2d95;
+      --neon-purple: #9a00ff;
+      --neon-blue: #2dffc5;
+      --text: #e0e0e0;
+    }
+    * { margin:0;padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height:1.6;
+    }
+    /* Background animated noise */
+    body::before {
+      content:'';
+      position:fixed; top:0;left:0; right:0;bottom:0;
+      background: url("https://assets.codepen.io/9425/noise.png") repeat;
+      opacity:.05; animation:noiseAnim 0.3s steps(10) infinite;
+      pointer-events:none; z-index: -1;
+    }
+    @keyframes noiseAnim {
+      0% { transform: translate(0,0); }
+      100% { transform: translate(-100%,100%); }
+    }
+    header {
+      text-align:center;
+      padding:4rem 1rem 2rem;
+      position:relative;
+    }
+    h1 {
+      font-size:3rem;
+      color: var(--neon-pink);
+      text-shadow:
+        0 0 4px var(--neon-pink),
+        0 0 8px var(--neon-pink),
+        0 0 16px var(--neon-pink);
+      animation:glitch 2s infinite;
+    }
+    @keyframes glitch {
+      0% { text-shadow:0 0 4px var(--neon-pink); }
+      25% { text-shadow:-2px 0 8px var(--neon-purple); }
+      50% { text-shadow:2px 0 8px var(--neon-blue); }
+      75% { text-shadow:-2px 0 8px var(--neon-pink); }
+      100% { text-shadow:0 0 4px var(--neon-pink); }
+    }
+    nav a {
+      margin:0 .5rem;
+      color: var(--text);
+      text-decoration:none;
+      font-weight:700;
+      position:relative;
+    }
+    nav a::after {
+      content:'';
+      position:absolute; left:0;bottom:-2px;
+      width:100%; height:2px; background:var(--neon-pink);
+      transform:scaleX(0); transform-origin:left;
+      transition:transform .3s;
+    }
+    nav a:hover::after { transform:scaleX(1); }
+    section { padding:3rem 1rem; max-width:800px; margin:0 auto; }
+    .cards { display:grid; grid-template-columns:1fr; gap:1.5rem; }
+    @media(min-width:600px) { .cards { grid-template-columns:1fr 1fr; } }
+    .card {
+      background:rgba(255,255,255,0.03);
+      border:1px solid var(--neon-purple);
+      padding:1rem;
+      border-radius:6px;
+      transition:transform .3s, box-shadow .3s;
+    }
+    .card:hover {
+      transform:translateY(-5px);
+      box-shadow:0 0 10px var(--neon-purple);
+    }
+    .card h3 {
+      margin-bottom:.5rem;
+      color: var(--neon-blue);
+    }
+    .typewriter {
+      overflow:hidden; border-right:.15em solid var(--neon-pink);
+      white-space:nowrap; animation:
+        typing 3s steps(30,end) infinite,
+        blink-caret .75s step-end infinite;
+    }
+    @keyframes typing {
+      0% { width:0; } 50%,100% { width:100%; }
+    }
+    @keyframes blink-caret {
+      50% { border-color: transparent; }
+    }
+    footer {
+      text-align:center; padding:2rem 1rem;
+      border-top:1px solid rgba(255,255,255,0.1);
+    }
+    footer a {
+      color: var(--neon-pink);
+      text-decoration:none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Nome Cognome</h1>
+    <p class="typewriter">Full-Stack Developer • Open-Source Addict • Cyberpunk Enthusiast</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="about">
+    <h2 style="color:var(--neon-purple)">Chi sono</h2>
+    <p>Sono uno sviluppatore con la passione per il futurismo digitale e le interfacce da mondo distopico. Lavoro con React, Node.js e TypeScript. Amo contribuire a progetti open source.</p>
+  </section>
+
+  <section id="projects">
+    <h2 style="color:var(--neon-purple)">Progetti</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>🔗 Repo #1</h3>
+        <p>Breve descrizione del progetto, stack tech e link a <a href="#" style="color:var(--neon-pink)">GitHub</a>.</p>
+      </div>
+      <div class="card">
+        <h3>🔗 Repo #2</h3>
+        <p>Breve descrizione ...</p>
+      </div>
+      <!-- Clonane o aggiungine altri -->
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 style="color:var(--neon-purple)">Contatti</h2>
+    <p>✉️ <a href="mailto:tuo@email.it" style="color:var(--neon-blue)">tuo@email.it</a></p>
+    <p>💼 <a href="https://github.com/tuoUsername" target="_blank" style="color:var(--neon-blue)">github.com/tuoUsername</a></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Nome Cognome — <a href="#about">Top</a></p>
+  </footer>
+
+  <script>
+    // Piccolo effetto di fade-in sezioni
+    gsap.from("section", {
+      opacity: 0, y: 50, duration: 1.2, stagger: 0.3
+    });
+  </script>
+
+</body>
+</html>
