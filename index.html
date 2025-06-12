@@ -1,193 +1,245 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+  <!-- META SEO -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Portfolio di Nome Cognome – Full-Stack Developer, React, Node.js, Cyberpunk style">
+  <meta property="og:title" content="Nome Cognome – Full-Stack Developer">
+  <meta property="og:description" content="Portfolio professionale con effetti cyberpunk, WebGL, PWA">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tuoUsername.github.io/">
+  <meta property="og:image" content="https://tuoUsername.github.io/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
   <title>Nome Cognome – Full-Stack Developer</title>
-  <!-- RESET -->
-  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
-  <!-- FONT -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <!-- GSAP -->
-  <script src="https://unpkg.com/gsap@3.11.5/dist/gsap.min.js"></script>
+
+  <!-- PWA MANIFEST -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d0d0d">
+
+  <!-- PREFETCH / PRECONNECT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" as="style">
+
+  <!-- RESET + UTILITY -->
+  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
+  </noscript>
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" defer>
+
+  <!-- THREE.JS BACKGROUND -->
+  <script src="https://unpkg.com/three@0.155.0/build/three.min.js" defer></script>
+
+  <!-- GSAP + UTILITY SCRIPTS -->
+  <script src="https://unpkg.com/gsap@3.11.5/dist/gsap.min.js" defer></script>
+  <script defer>
+    // Register service worker for PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+
   <style>
-    :root {
-      --bg:#0d0d0d; --fg:#e5e5e5;
-      --n1:#00ffff; --n2:#ff00ff; --n3:#ff4c00;
-      --accent:var(--n1);
-      --fw-light:300; --fw-normal:400; --fw-bold:700;
-    }
-    body {
-      font-family:'Poppins',sans-serif; color:var(--fg);
-      background:var(--bg); scroll-behavior:smooth; line-height:1.6;
-    }
-    a { color:var(--accent); text-decoration:none; }
-    a:hover { opacity:.8; }
+  /* ================ VARIABLES ================ */
+  :root {
+    --clr-bg: #0d0d0d; --clr-fg: #e5e5e5;
+    --clr-neon1: #00ffff; --clr-neon2: #ff00ff; --clr-neon3: #ff4c00;
+    --transition: 0.3s ease;
+    --font-sans: 'Poppins', sans-serif;
+    --font-mono: 'Orbitron', monospace;
+  }
+  [data-theme="light"] {
+    --clr-bg: #fafafa; --clr-fg: #111;
+    --clr-neon1: #0099ff; --clr-neon2: #cc00cc; --clr-neon3: #ff5500;
+  }
 
-    /* NAVBAR */
-    header {
-      position:fixed; inset:0 auto auto;
-      background:rgba(13,13,13,.7); backdrop-filter:blur(8px);
-      z-index:100;
-    }
-    nav {
-      max-width:1200px; margin:0 auto; padding:1rem;
-      display:flex; justify-content:space-between; align-items:center;
-    }
-    .logo {
-      font-family:'Orbitron',sans-serif; font-weight:var(--fw-bold);
-      font-size:1.4rem; color:var(--n2); letter-spacing:.1rem;
-    }
-    nav ul { display:flex; gap:1.5rem; }
-    nav li { list-style:none; }
-    nav a { font-weight:var(--fw-bold); font-size:.95rem; }
+  /* ================ GLOBAL ================ */
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--clr-bg);
+    color: var(--clr-fg);
+    margin: 0; line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { color: var(--clr-neon1); text-decoration: none; transition: opacity var(--transition); }
+  a:hover { opacity: .8; }
+  h1,h2,h3 { margin: .5rem 0; font-family: var(--font-mono); }
+  section { padding: 6rem 1rem; max-width: 1100px; margin: auto; opacity:0; transform: translateY(40px); }
 
-    /* HERO */
-    #hero {
-      height:100vh; display:flex; flex-direction:column;
-      justify-content:center; align-items:center; text-align:center;
-      padding:0 1rem; background:linear-gradient(135deg,#0d0d0d,#1a1a1a);
-    }
-    #hero h1 {
-      font-family:'Orbitron',sans-serif; font-size:clamp(2.5rem,8vw,5rem);
-      background:linear-gradient(90deg,var(--n1),var(--n3));
-      -webkit-background-clip:text; color:transparent;
-      position:relative; margin:0;
-    }
-    #hero h1::after {
-      content:attr(data-text); position:absolute; inset:0;
-      color:var(--n1);
-      clip-path:polygon(0 0,90% 0,90% 100%,0 100%);
-      animation:glitch 2s infinite;
-    }
-    @keyframes glitch {
-      0% { clip-path:polygon(0 0,80% 0,80% 100%,0 100%); transform:translate(0); }
-      33% { clip-path:polygon(0 33%,100% 33%,100% 66%,0 66%); transform:translate(2px,-2px); }
-      66% { clip-path:polygon(0 66%,100% 66%,100% 100%,0 100%); transform:translate(-2px,2px); }
-      100% { clip-path:polygon(0 0,80% 0,80% 100%,0 100%); transform:translate(0); }
-    }
-    #hero p {
-      margin-top:1rem; font-size:1.1rem; max-width:600px;
-      font-weight:var(--fw-light); opacity:.9;
-    }
-    #hero .cta {
-      margin-top:2rem; background:var(--accent); color:var(--bg);
-      padding:.75rem 1.5rem; border:none; border-radius:4px;
-      font-weight:var(--fw-bold); cursor:pointer;
-      transition:transform .2s;
-    }
-    #hero .cta:hover { transform:scale(1.05); }
+  /* ================ NAVBAR ================ */
+  header {
+    position: fixed; top:0; left:0; width:100%;
+    background: rgba(13,13,13,.7); backdrop-filter: blur(10px);
+    z-index: 100;
+  }
+  nav {
+    max-width: 1200px; margin: auto; display: flex;
+    justify-content: space-between; align-items: center;
+    padding: 1rem;
+  }
+  .logo {
+    font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700;
+    color: var(--clr-neon2);
+  }
+  .nav-links { display:flex; gap:1.5rem; }
+  .nav-links a { font-weight: 600; font-size: .95rem; position: relative; }
+  .nav-links a.active::after {
+    content:''; position:absolute; left:0; bottom:-4px;
+    width:100%; height:2px; background: var(--clr-neon1);
+  }
 
-    /* SEZIONI BASE */
-    section {
-      padding:6rem 1rem 3rem; max-width:1100px; margin:0 auto;
-      opacity:0; transform:translateY(50px);
-    }
-    section h2 {
-      font-family:'Orbitron',sans-serif; font-size:2rem;
-      margin-bottom:1rem; color:var(--n2); text-transform:uppercase;
-      border-left:4px solid var(--accent); padding-left:.75rem;
-    }
+  /* ================ THEME TOGGLE ================ */
+  .toggle-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 1.2rem; color: var(--clr-neon1);
+    transition: transform var(--transition);
+  }
+  .toggle-btn:hover { transform: scale(1.1); }
 
-    /* SKILLS */
-    .skills-grid {
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-      gap:2rem; margin-top:2rem;
-    }
-    .skill {
-      text-align:center; color:var(--fg);
-    }
-    .skill svg {
-      --pct: var(--p);
-      width:80px; height:80px; margin-bottom:.5rem;
-      background: conic-gradient(var(--accent) calc(var(--pct)*1%), #333 0);
-      border-radius:50%;
-      mask: radial-gradient(farthest-side,#0000 99%,#000 100%);
-    }
-    .skill span {
-      display:block; margin-top:.5rem; font-weight:var(--fw-bold);
-    }
+  /* ================ HERO ================ */
+  #hero {
+    height: 100vh; display: flex; align-items: center;
+    justify-content: center; text-align: center; position: relative;
+    overflow: hidden;
+    color: var(--clr-fg);
+  }
+  #hero canvas { position: absolute; inset:0; z-index:-1; }
+  #hero h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    background: linear-gradient(90deg, var(--clr-neon1), var(--clr-neon3));
+    -webkit-background-clip: text; color: transparent;
+    position: relative;
+  }
+  #hero p {
+    font-size: 1.1rem; max-width: 600px; margin-top: 1rem; opacity: .9;
+  }
+  #hero .cta {
+    margin-top: 2rem; padding: .75rem 1.5rem;
+    background: var(--clr-neon1); color: var(--clr-bg);
+    border: none; border-radius: 4px; font-weight: 600;
+    cursor: pointer; transition: transform var(--transition);
+  }
+  #hero .cta:hover { transform: scale(1.05); }
 
-    /* PROJECTS */
-    .projects-grid {
-      display:grid; gap:2rem;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    }
-    .card {
-      background:rgba(255,255,255,0.03); border:1px solid var(--n2);
-      border-radius:6px; padding:1.5rem; transition:transform .3s,box-shadow .3s;
-    }
-    .card:hover {
-      transform:translateY(-5px); box-shadow:0 0 10px var(--n2);
-    }
-    .card h3 { margin-bottom:.5rem; color:var(--n1); }
-    .card p { font-size:.95rem; line-height:1.4; }
+  /* ================ SECTION HEADINGS ================ */
+  section h2 {
+    font-size: 2rem; color: var(--clr-neon2);
+    text-transform: uppercase; border-left: 4px solid var(--clr-neon1);
+    padding-left: .75rem; margin-bottom: 1rem;
+  }
 
-    /* CONTACT */
-    #contact p {
-      margin-bottom:.75rem; display:flex; align-items:center; gap:.5rem;
-    }
+  /* ================ SKILLS ================ */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+    gap: 2rem; margin-top: 2rem;
+  }
+  .skill {
+    text-align: center; font-weight: 600;
+  }
+  .skill svg {
+    --p: var(--pct);
+    width: 80px; height: 80px; margin: auto;
+    background: conic-gradient(var(--clr-neon1) calc(var(--p)*1%), #333 0);
+    border-radius: 50%; mask: radial-gradient(farthest-side,#0000 99%,#000 100%);
+  }
 
-    /* FOOTER */
-    footer {
-      text-align:center; padding:2rem 1rem;
-      border-top:1px solid rgba(255,255,255,0.1); font-size:.9rem;
-    }
+  /* ================ PROJECTS ================ */
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2rem;
+  }
+  .card {
+    background: rgba(255,255,255,0.05); border: 1px solid var(--clr-neon2);
+    padding: 1.5rem; border-radius: 8px;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .card:hover {
+    transform: translateY(-5px); box-shadow: 0 0 15px var(--clr-neon2);
+  }
+  .card h3 { color: var(--clr-neon1); }
+  .card p { font-size: .95rem; }
 
-    /* ANIMAZIONI GENERALI */
-    .fade-in {
-      opacity:1 !important; transform:translateY(0) !important;
-      transition:opacity .8s ease-out, transform .8s ease-out;
-    }
+  /* ================ CONTACT ================ */
+  #contact form {
+    display: grid; gap: 1rem; max-width: 400px; margin: auto;
+  }
+  #contact input, #contact textarea {
+    width: 100%; padding: .75rem; border-radius: 4px;
+    border: 1px solid #444; background: #111; color: #fff;
+  }
+  #contact button {
+    background: var(--clr-neon1); color: var(--clr-bg);
+    padding: .75rem; border:none; border-radius:4px;
+    font-weight:600; cursor:pointer; transition: opacity var(--transition);
+  }
+  #contact button:hover { opacity:.9; }
+
+  /* ================ FOOTER ================ */
+  footer {
+    text-align:center; padding:2rem 1rem; font-size:.9rem;
+    border-top:1px solid rgba(255,255,255,0.1);
+  }
+
+  /* ================ UTILITIES ================ */
+  .fade-in {
+    opacity:1 !important; transform:translateY(0) !important;
+    transition: opacity .8s ease-out, transform .8s ease-out;
+  }
   </style>
 </head>
-<body>
+<body data-theme="dark">
 
   <header>
     <nav>
       <div class="logo">NomeCognome</div>
-      <ul>
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <ul class="nav-links" role="menubar">
+        <li><a href="#hero" role="menuitem">Home</a></li>
+        <li><a href="#about" role="menuitem">About</a></li>
+        <li><a href="#skills" role="menuitem">Skills</a></li>
+        <li><a href="#projects" role="menuitem">Projects</a></li>
+        <li><a href="#contact" role="menuitem">Contact</a></li>
       </ul>
+      <button class="toggle-btn" aria-label="Toggle theme">🌓</button>
     </nav>
   </header>
 
   <main>
     <!-- HERO -->
-    <section id="hero">
-      <h1 data-text="Nome Cognome">Nome Cognome</h1>
-      <p>Full-Stack Developer & Open-Source Addict con un occhio al futuro distopico.</p>
-      <button class="cta" onclick="document.getElementById('contact').scrollIntoView()">Contattami</button>
+    <section id="hero" aria-label="Hero">
+      <canvas id="bg-canvas"></canvas>
+      <h1>Nome Cognome</h1>
+      <p>Full-Stack Developer & Open-Source Addict con anima cyberpunk.</p>
+      <button class="cta" onclick="location.href='#contact'">Contattami</button>
     </section>
 
     <!-- ABOUT -->
-    <section id="about">
+    <section id="about" aria-label="About me">
       <h2>About</h2>
-      <p>Specializzato in JavaScript/TypeScript, React, Node.js e architetture serverless. Amo trasformare idee visionarie in codice ad alte prestazioni.</p>
+      <p>Mi occupo di architetture serverless, micro-frontends e UI/UX immersivi. React, TypeScript, Node.js & Cloud native.</p>
     </section>
 
     <!-- SKILLS -->
-    <section id="skills">
+    <section id="skills" aria-label="Skills">
       <h2>Skills</h2>
       <div class="skills-grid">
-        <!-- Imposta --p su percentuale es. 90 -->
-        <div class="skill" style="--p:90">
+        <div class="skill" style="--pct:90">
           <svg viewBox="0 0 100 100"></svg>
           <span>JavaScript</span>
         </div>
-        <div class="skill" style="--p:85">
+        <div class="skill" style="--pct:85">
           <svg viewBox="0 0 100 100"></svg>
           <span>TypeScript</span>
         </div>
-        <div class="skill" style="--p:80">
+        <div class="skill" style="--pct:80">
           <svg viewBox="0 0 100 100"></svg>
           <span>React</span>
         </div>
-        <div class="skill" style="--p:75">
+        <div class="skill" style="--pct:75">
           <svg viewBox="0 0 100 100"></svg>
           <span>Node.js</span>
         </div>
@@ -195,29 +247,28 @@
     </section>
 
     <!-- PROJECTS -->
-    <section id="projects">
+    <section id="projects" aria-label="Projects">
       <h2>Projects</h2>
       <div class="projects-grid">
         <div class="card">
-          <h3>🔗 Repo #1</h3>
-          <p>Microservices serverless con AWS Lambda e DynamoDB. <a href="#" target="_blank">GitHub →</a></p>
+          <h3>🔗 CyberDeck</h3>
+          <p>PWA distopica per gestire note in tempo reale su IndexedDB. <a href="#">GitHub →</a></p>
         </div>
         <div class="card">
-          <h3>🔗 Repo #2</h3>
-          <p>PWA per la gestione di eventi in realtime, basata su WebSockets. <a href="#" target="_blank">GitHub →</a></p>
+          <h3>🔗 StaticSynth</h3>
+          <p>Sintetizzatore audio WebAssembly con UI neon. <a href="#">GitHub →</a></p>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact">
+    <section id="contact" aria-label="Contact form">
       <h2>Contact</h2>
-      <p>✉️ <a href="mailto:tuo@email.it">
-        tuo@email.it
-      </a></p>
-      <p>💼 <a href="https://github.com/tuoUsername" target="_blank">
-        github.com/tuoUsername
-      </a></p>
+      <form action="https://formspree.io/f/tuo-form-id" method="POST">
+        <input type="email" name="email" placeholder="La tua email" required aria-required="true">
+        <textarea name="message" rows="4" placeholder="Il tuo messaggio" required aria-required="true"></textarea>
+        <button type="submit">Invia</button>
+      </form>
     </section>
   </main>
 
@@ -225,18 +276,59 @@
     © 2025 Nome Cognome — <a href="#hero">Top</a>
   </footer>
 
-  <script>
-    // Fade-in on scroll
-    const secs = document.querySelectorAll('section');
-    const obs = new IntersectionObserver((e,s)=>{
-      e.forEach(el=>{
-        if(el.isIntersecting) el.target.classList.add('fade-in');
-      });
-    },{ threshold:0.2 });
-    secs.forEach(sec=>obs.observe(sec));
+  <script defer>
+  // THEME TOGGLE
+  const btn = document.querySelector('.toggle-btn');
+  btn.addEventListener('click',()=>{
+    const root = document.body;
+    root.dataset.theme = root.dataset.theme==='dark'?'light':'dark';
+  });
 
-    // Glitch loop timing
-    gsap.fromTo('#hero h1', {opacity:0}, {opacity:1, duration:1.5, delay:0.5});
+  // SCROLL-SPY
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const id = e.target.id;
+      const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+      if(e.isIntersecting){
+        navLinks.forEach(a=>a.classList.remove('active'));
+        link.classList.add('active');
+        e.target.classList.add('fade-in');
+      }
+    });
+  }, {threshold:0.3});
+  sections.forEach(s=>obs.observe(s));
+
+  // THREE.JS BACKGROUND PARTICLES
+  function initThree(){
+    const canvas = document.getElementById('bg-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
+    const renderer = new THREE.WebGLRenderer({canvas, alpha:true});
+    renderer.setSize(innerWidth, innerHeight);
+    camera.position.z = 5;
+    const geometry = new THREE.BufferGeometry();
+    const particles = 10000;
+    const positions = new Float32Array(particles*3);
+    for(let i=0;i<positions.length;i++) positions[i]=(Math.random()-0.5)*20;
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions,3));
+    const material = new THREE.PointsMaterial({color:0x00ffff, size:0.02});
+    const pts = new THREE.Points(geometry, material);
+    scene.add(pts);
+    function animate(){
+      requestAnimationFrame(animate);
+      pts.rotation.y += 0.0005;
+      renderer.render(scene,camera);
+    }
+    animate();
+    window.addEventListener('resize',()=>{
+      camera.aspect = innerWidth/innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth,innerHeight);
+    });
+  }
+  window.addEventListener('DOMContentLoaded', initThree);
   </script>
 </body>
 </html>
