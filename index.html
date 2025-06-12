@@ -1,93 +1,139 @@
+<!-- ==============================================
+     CONFIGURAZIONE PROGETTO (CUSTOMIZE QUI)
+============================================== -->
+<!--
+  SITE_TITLE:         Nome Cognome – Full-Stack Developer
+  SITE_DESCRIPTION:   Portfolio professionale con effetti cyberpunk, WebGL, PWA, SEO ottimizzato
+  SITE_URL:           https://tuoUsername.github.io/
+  SITE_IMAGE:         https://tuoUsername.github.io/og-image.png
+  AUTHOR_NAME:        Nome Cognome
+  EMAIL:              tuo@email.it
+  GITHUB_USER:        tuoUsername
+  LINKEDIN_USER:      tuaLinkedIn
+  FORMSPREE_ID:       yourFormspreeID
+  COLOR_NEON1:        #00ffff
+  COLOR_NEON2:        #ff00ff
+  COLOR_NEON3:        #ff4c00
+  FONT_SANS:          'Poppins', sans-serif
+  FONT_MONO:          'Orbitron', monospace
+  ANIM_DURATION:      0.8s
+-->
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="dark">
 <head>
-  <!-- META SEO -->
+  <!-- SEO BASE -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Portfolio di Nome Cognome – Full-Stack Developer, React, Node.js, Cyberpunk style">
-  <meta property="og:title" content="Nome Cognome – Full-Stack Developer">
-  <meta property="og:description" content="Portfolio professionale con effetti cyberpunk, WebGL, PWA">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://tuoUsername.github.io/">
-  <meta property="og:image" content="https://tuoUsername.github.io/og-image.png">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="description" content="Portfolio professionale con effetti cyberpunk, WebGL, PWA, SEO ottimizzato">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://tuoUsername.github.io/">
+
+  <!-- OPEN GRAPH & TWITTER -->
+  <meta property="og:title"        content="Nome Cognome – Full-Stack Developer">
+  <meta property="og:description"  content="Portfolio professionale con effetti cyberpunk, WebGL, PWA, SEO ottimizzato">
+  <meta property="og:type"         content="website">
+  <meta property="og:url"          content="https://tuoUsername.github.io/">
+  <meta property="og:image"        content="https://tuoUsername.github.io/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+
   <title>Nome Cognome – Full-Stack Developer</title>
+
+  <!-- JSON-LD PERSON -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Nome Cognome",
+    "url": "https://tuoUsername.github.io/",
+    "email": "mailto:tuo@email.it",
+    "sameAs": [
+      "https://github.com/tuoUsername",
+      "https://linkedin.com/in/tuaLinkedIn"
+    ]
+  }
+  </script>
 
   <!-- PWA MANIFEST -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0d0d0d">
 
-  <!-- PREFETCH / PRECONNECT -->
+  <!-- FONT PRELOAD & CDN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- RESET + UTILITY -->
-  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
-  </noscript>
+  <!-- RESET CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
 
-  <!-- FONTS -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" defer>
-
-  <!-- THREE.JS BACKGROUND -->
+  <!-- THREE.JS & GSAP -->
   <script src="https://unpkg.com/three@0.155.0/build/three.min.js" defer></script>
-
-  <!-- GSAP + UTILITY SCRIPTS -->
   <script src="https://unpkg.com/gsap@3.11.5/dist/gsap.min.js" defer></script>
-  <script defer>
-    // Register service worker for PWA
+  <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
   </script>
 
   <style>
-  /* ================ VARIABLES ================ */
+  /* ================= CONFIGURAZIONE VARIABILI ================ */
   :root {
-    --clr-bg: #0d0d0d; --clr-fg: #e5e5e5;
-    --clr-neon1: #00ffff; --clr-neon2: #ff00ff; --clr-neon3: #ff4c00;
-    --transition: 0.3s ease;
-    --font-sans: 'Poppins', sans-serif;
-    --font-mono: 'Orbitron', monospace;
+    --clr-bg:       #0d0d0d;
+    --clr-fg:       #e5e5e5;
+    --clr-neon1:    #00ffff;
+    --clr-neon2:    #ff00ff;
+    --clr-neon3:    #ff4c00;
+    --font-sans:    'Poppins', sans-serif;
+    --font-mono:    'Orbitron', monospace;
+    --dur:          0.8s;
+    --site-max:     1100px;
   }
   [data-theme="light"] {
-    --clr-bg: #fafafa; --clr-fg: #111;
-    --clr-neon1: #0099ff; --clr-neon2: #cc00cc; --clr-neon3: #ff5500;
+    --clr-bg:    #fafafa;
+    --clr-fg:    #111;
+    --clr-neon1: #0099ff;
+    --clr-neon2: #cc00cc;
+    --clr-neon3: #ff5500;
   }
 
-  /* ================ GLOBAL ================ */
+  /* ================= GLOBAL ================ */
   html { scroll-behavior: smooth; }
   body {
+    margin:0; padding:0;
     font-family: var(--font-sans);
     background: var(--clr-bg);
     color: var(--clr-fg);
-    margin: 0; line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x:hidden;
+    line-height:1.6;
   }
-  a { color: var(--clr-neon1); text-decoration: none; transition: opacity var(--transition); }
-  a:hover { opacity: .8; }
+  a {
+    color: var(--clr-neon1);
+    text-decoration:none;
+    transition: opacity var(--dur);
+  }
+  a:hover { opacity:.8; }
   h1,h2,h3 { margin: .5rem 0; font-family: var(--font-mono); }
-  section { padding: 6rem 1rem; max-width: 1100px; margin: auto; opacity:0; transform: translateY(40px); }
 
-  /* ================ NAVBAR ================ */
+  /* ================= NAVBAR ================ */
   header {
     position: fixed; top:0; left:0; width:100%;
     background: rgba(13,13,13,.7); backdrop-filter: blur(10px);
-    z-index: 100;
+    z-index:100;
   }
   nav {
-    max-width: 1200px; margin: auto; display: flex;
-    justify-content: space-between; align-items: center;
-    padding: 1rem;
+    max-width: var(--site-max); margin:auto;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1rem;
   }
   .logo {
-    font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700;
+    font-size:1.5rem; font-weight:700;
     color: var(--clr-neon2);
   }
-  .nav-links { display:flex; gap:1.5rem; }
-  .nav-links a { font-weight: 600; font-size: .95rem; position: relative; }
+  .nav-links {
+    display:flex; gap:1.5rem;
+  }
+  .nav-links a {
+    position: relative; font-weight:600; font-size:.95rem;
+  }
   .nav-links a.active::after {
     content:''; position:absolute; left:0; bottom:-4px;
     width:100%; height:2px; background: var(--clr-neon1);
@@ -95,114 +141,124 @@
 
   /* ================ THEME TOGGLE ================ */
   .toggle-btn {
-    background: none; border: none; cursor: pointer;
-    font-size: 1.2rem; color: var(--clr-neon1);
-    transition: transform var(--transition);
+    background:none; border:none; cursor:pointer;
+    font-size:1.2rem; color: var(--clr-neon1);
+    transition: transform var(--dur);
   }
   .toggle-btn:hover { transform: scale(1.1); }
 
-  /* ================ HERO ================ */
+  /* ================= HERO ================ */
   #hero {
-    height: 100vh; display: flex; align-items: center;
-    justify-content: center; text-align: center; position: relative;
-    overflow: hidden;
-    color: var(--clr-fg);
+    height:100vh; display:flex; flex-direction:column;
+    justify-content:center; align-items:center; text-align:center;
+    position:relative; overflow:hidden;
+    padding:0 1rem;
   }
-  #hero canvas { position: absolute; inset:0; z-index:-1; }
+  #hero canvas { position:absolute; inset:0; z-index:-1; }
   #hero h1 {
     font-size: clamp(2.5rem, 8vw, 5rem);
     background: linear-gradient(90deg, var(--clr-neon1), var(--clr-neon3));
-    -webkit-background-clip: text; color: transparent;
-    position: relative;
+    -webkit-background-clip:text; color:transparent;
+    position:relative; margin:0;
   }
   #hero p {
-    font-size: 1.1rem; max-width: 600px; margin-top: 1rem; opacity: .9;
+    margin-top:1rem; font-size:1.1rem; max-width:600px; opacity:.9;
   }
   #hero .cta {
-    margin-top: 2rem; padding: .75rem 1.5rem;
+    margin-top:2rem; padding:.75rem 1.5rem;
     background: var(--clr-neon1); color: var(--clr-bg);
-    border: none; border-radius: 4px; font-weight: 600;
-    cursor: pointer; transition: transform var(--transition);
+    border:none; border-radius:4px; font-weight:600; cursor:pointer;
+    transition: transform var(--dur);
   }
   #hero .cta:hover { transform: scale(1.05); }
 
-  /* ================ SECTION HEADINGS ================ */
+  /* ================= SECTIONS ================ */
+  section {
+    padding:6rem 1rem 3rem;
+    max-width: var(--site-max);
+    margin:0 auto; opacity:0; transform: translateY(40px);
+  }
   section h2 {
-    font-size: 2rem; color: var(--clr-neon2);
-    text-transform: uppercase; border-left: 4px solid var(--clr-neon1);
-    padding-left: .75rem; margin-bottom: 1rem;
+    font-size:2rem; text-transform:uppercase;
+    color: var(--clr-neon2);
+    border-left:4px solid var(--clr-neon1);
+    padding-left:.75rem; margin-bottom:1rem;
   }
 
-  /* ================ SKILLS ================ */
+  /* ================= SKILLS ================ */
   .skills-grid {
-    display: grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
-    gap: 2rem; margin-top: 2rem;
+    display:grid; gap:2rem;
+    grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
   }
   .skill {
-    text-align: center; font-weight: 600;
+    text-align:center; font-weight:600;
   }
   .skill svg {
     --p: var(--pct);
-    width: 80px; height: 80px; margin: auto;
+    width:80px; height:80px; margin:auto;
     background: conic-gradient(var(--clr-neon1) calc(var(--p)*1%), #333 0);
-    border-radius: 50%; mask: radial-gradient(farthest-side,#0000 99%,#000 100%);
+    border-radius:50%;
+    mask: radial-gradient(farthest-side,#0000 99%,#000 100%);
   }
+  .skill span { display:block; margin-top:.5rem; }
 
-  /* ================ PROJECTS ================ */
+  /* ================= PROJECTS ================ */
   .projects-grid {
-    display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-    gap: 2rem;
+    display:grid; gap:2rem;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
   }
   .card {
-    background: rgba(255,255,255,0.05); border: 1px solid var(--clr-neon2);
-    padding: 1.5rem; border-radius: 8px;
-    transition: transform var(--transition), box-shadow var(--transition);
+    background: rgba(255,255,255,0.05);
+    border:1px solid var(--clr-neon2);
+    padding:1.5rem; border-radius:8px;
+    transition: transform var(--dur), box-shadow var(--dur);
   }
   .card:hover {
-    transform: translateY(-5px); box-shadow: 0 0 15px var(--clr-neon2);
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px var(--clr-neon2);
   }
   .card h3 { color: var(--clr-neon1); }
-  .card p { font-size: .95rem; }
+  .card p { font-size:.95rem; }
 
-  /* ================ CONTACT ================ */
+  /* ================= CONTACT ================ */
   #contact form {
-    display: grid; gap: 1rem; max-width: 400px; margin: auto;
+    display:grid; gap:1rem; max-width:400px; margin:auto;
   }
   #contact input, #contact textarea {
-    width: 100%; padding: .75rem; border-radius: 4px;
-    border: 1px solid #444; background: #111; color: #fff;
+    width:100%; padding:.75rem; border-radius:4px;
+    border:1px solid #444; background:#111; color:#fff;
   }
   #contact button {
     background: var(--clr-neon1); color: var(--clr-bg);
-    padding: .75rem; border:none; border-radius:4px;
-    font-weight:600; cursor:pointer; transition: opacity var(--transition);
+    padding:.75rem; border:none; border-radius:4px;
+    font-weight:600; cursor:pointer; transition: opacity var(--dur);
   }
   #contact button:hover { opacity:.9; }
 
-  /* ================ FOOTER ================ */
+  /* ================= FOOTER & UTILITIES ================ */
   footer {
     text-align:center; padding:2rem 1rem; font-size:.9rem;
     border-top:1px solid rgba(255,255,255,0.1);
   }
-
-  /* ================ UTILITIES ================ */
   .fade-in {
-    opacity:1 !important; transform:translateY(0) !important;
+    opacity:1 !important;
+    transform: translateY(0) !important;
     transition: opacity .8s ease-out, transform .8s ease-out;
   }
   </style>
 </head>
-<body data-theme="dark">
+<body>
 
+  <!-- NAVBAR -->
   <header>
     <nav>
       <div class="logo">NomeCognome</div>
       <ul class="nav-links" role="menubar">
-        <li><a href="#hero" role="menuitem">Home</a></li>
-        <li><a href="#about" role="menuitem">About</a></li>
-        <li><a href="#skills" role="menuitem">Skills</a></li>
-        <li><a href="#projects" role="menuitem">Projects</a></li>
-        <li><a href="#contact" role="menuitem">Contact</a></li>
+        <li><a href="#hero"      role="menuitem">Home</a></li>
+        <li><a href="#about"     role="menuitem">About</a></li>
+        <li><a href="#skills"    role="menuitem">Skills</a></li>
+        <li><a href="#projects"  role="menuitem">Projects</a></li>
+        <li><a href="#contact"   role="menuitem">Contact</a></li>
       </ul>
       <button class="toggle-btn" aria-label="Toggle theme">🌓</button>
     </nav>
@@ -220,29 +276,17 @@
     <!-- ABOUT -->
     <section id="about" aria-label="About me">
       <h2>About</h2>
-      <p>Mi occupo di architetture serverless, micro-frontends e UI/UX immersivi. React, TypeScript, Node.js & Cloud native.</p>
+      <p>Architetture serverless, micro-frontends e UI/UX immersivi. React, TypeScript, Node.js & Cloud native.</p>
     </section>
 
     <!-- SKILLS -->
     <section id="skills" aria-label="Skills">
       <h2>Skills</h2>
       <div class="skills-grid">
-        <div class="skill" style="--pct:90">
-          <svg viewBox="0 0 100 100"></svg>
-          <span>JavaScript</span>
-        </div>
-        <div class="skill" style="--pct:85">
-          <svg viewBox="0 0 100 100"></svg>
-          <span>TypeScript</span>
-        </div>
-        <div class="skill" style="--pct:80">
-          <svg viewBox="0 0 100 100"></svg>
-          <span>React</span>
-        </div>
-        <div class="skill" style="--pct:75">
-          <svg viewBox="0 0 100 100"></svg>
-          <span>Node.js</span>
-        </div>
+        <div class="skill" style="--pct:90"><svg viewBox="0 0 100 100"></svg><span>JavaScript</span></div>
+        <div class="skill" style="--pct:85"><svg viewBox="0 0 100 100"></svg><span>TypeScript</span></div>
+        <div class="skill" style="--pct:80"><svg viewBox="0 0 100 100"></svg><span>React</span></div>
+        <div class="skill" style="--pct:75"><svg viewBox="0 0 100 100"></svg><span>Node.js</span></div>
       </div>
     </section>
 
@@ -252,11 +296,11 @@
       <div class="projects-grid">
         <div class="card">
           <h3>🔗 CyberDeck</h3>
-          <p>PWA distopica per gestire note in tempo reale su IndexedDB. <a href="#">GitHub →</a></p>
+          <p>PWA real-time note su IndexedDB. <a href="#">GitHub →</a></p>
         </div>
         <div class="card">
           <h3>🔗 StaticSynth</h3>
-          <p>Sintetizzatore audio WebAssembly con UI neon. <a href="#">GitHub →</a></p>
+          <p>Sintetizzatore WebAssembly con UI neon. <a href="#">GitHub →</a></p>
         </div>
       </div>
     </section>
@@ -264,70 +308,67 @@
     <!-- CONTACT -->
     <section id="contact" aria-label="Contact form">
       <h2>Contact</h2>
-      <form action="https://formspree.io/f/tuo-form-id" method="POST">
-        <input type="email" name="email" placeholder="La tua email" required aria-required="true">
-        <textarea name="message" rows="4" placeholder="Il tuo messaggio" required aria-required="true"></textarea>
+      <form action="https://formspree.io/f/yourFormspreeID" method="POST">
+        <input type="email"    name="email"    placeholder="La tua email" required>
+        <textarea name="message" rows="4" placeholder="Il tuo messaggio" required></textarea>
         <button type="submit">Invia</button>
       </form>
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer>
     © 2025 Nome Cognome — <a href="#hero">Top</a>
   </footer>
 
-  <script defer>
+  <script>
   // THEME TOGGLE
-  const btn = document.querySelector('.toggle-btn');
-  btn.addEventListener('click',()=>{
-    const root = document.body;
-    root.dataset.theme = root.dataset.theme==='dark'?'light':'dark';
+  document.querySelector('.toggle-btn').addEventListener('click',()=>{
+    const b = document.body;
+    b.dataset.theme = b.dataset.theme==='dark'?'light':'dark';
   });
 
-  // SCROLL-SPY
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const sections = document.querySelectorAll('section');
-  const obs = new IntersectionObserver(entries=>{
+  // SCROLL-SPY & FADE-IN
+  const links = document.querySelectorAll('.nav-links a');
+  const secs   = document.querySelectorAll('section');
+  const obs    = new IntersectionObserver(entries=>{
     entries.forEach(e=>{
-      const id = e.target.id;
-      const link = document.querySelector(`.nav-links a[href="#${id}"]`);
       if(e.isIntersecting){
-        navLinks.forEach(a=>a.classList.remove('active'));
-        link.classList.add('active');
+        document.querySelector('.nav-links a.active')?.classList.remove('active');
+        document.querySelector(`.nav-links a[href="#${e.target.id}"]`)?.classList.add('active');
         e.target.classList.add('fade-in');
       }
     });
-  }, {threshold:0.3});
-  sections.forEach(s=>obs.observe(s));
+  },{threshold:0.3});
+  secs.forEach(s=>obs.observe(s));
 
-  // THREE.JS BACKGROUND PARTICLES
-  function initThree(){
+  // THREE.JS PARTICELLE BACKGROUND
+  const initThree = ()=>{
     const canvas = document.getElementById('bg-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
-    const renderer = new THREE.WebGLRenderer({canvas, alpha:true});
-    renderer.setSize(innerWidth, innerHeight);
-    camera.position.z = 5;
-    const geometry = new THREE.BufferGeometry();
-    const particles = 10000;
-    const positions = new Float32Array(particles*3);
-    for(let i=0;i<positions.length;i++) positions[i]=(Math.random()-0.5)*20;
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions,3));
-    const material = new THREE.PointsMaterial({color:0x00ffff, size:0.02});
-    const pts = new THREE.Points(geometry, material);
+    const scene  = new THREE.Scene();
+    const cam    = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+    const ren    = new THREE.WebGLRenderer({canvas, alpha:true});
+    ren.setSize(innerWidth, innerHeight);
+    cam.position.z = 5;
+    const geo = new THREE.BufferGeometry();
+    const cnt = 8000;
+    const pos = new Float32Array(cnt*3);
+    for(let i=0;i<pos.length;i++) pos[i]=(Math.random()-0.5)*20;
+    geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+    const mat = new THREE.PointsMaterial({color:0x00ffff, size:0.015});
+    const pts = new THREE.Points(geo, mat);
     scene.add(pts);
-    function animate(){
+    const animate = ()=>{
       requestAnimationFrame(animate);
-      pts.rotation.y += 0.0005;
-      renderer.render(scene,camera);
-    }
+      pts.rotation.y += 0.0004;
+      ren.render(scene, cam);
+    };
     animate();
     window.addEventListener('resize',()=>{
-      camera.aspect = innerWidth/innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(innerWidth,innerHeight);
+      cam.aspect = innerWidth/innerHeight; cam.updateProjectionMatrix();
+      ren.setSize(innerWidth, innerHeight);
     });
-  }
+  };
   window.addEventListener('DOMContentLoaded', initThree);
   </script>
 </body>
